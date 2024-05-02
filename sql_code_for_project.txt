@@ -1,0 +1,227 @@
+--------CODE TO CREATE TABLES-----------------
+CREATE TABLE Employee (
+Employee_Id INT(6),
+First_Name VARCHAR(25),
+Last_Name VARCHAR(25),
+Hire_Date DATE,
+City VARCHAR(25),
+State VARCHAR(25),
+Department_id int,
+FOREIGN KEY (Department_id) REFERENCES Department(Department_Id)
+CONSTRAINT EMPLOYEE_PK PRIMARY KEY (Employee_Id)
+);
+CREATE TABLE Department (
+Department_Id INT,
+Department_Name VARCHAR(30),
+CONSTRAINT DEPARTMENT_PK PRIMARY KEY (Department_Id)
+);
+CREATE TABLE Salary (
+Salary_Id int,
+Gross_Salary int,
+Hourly_Pay int,
+State_Tax int,
+Federal_Tax int,
+Account_Id int,
+CONSTRAINT SALARY_PK PRIMARY KEY (Salary_Id),
+FOREIGN KEY (Account_Id) REFERENCES AccountDetails(Account_Id)
+);
+CREATE TABLE AccountDetails (
+Account_Id int,
+Bank_Name VARCHAR(50),
+Account_Number VARCHAR(50),
+Employee_Id int,
+CONSTRAINT Account_PK PRIMARY KEY (Account_Id),
+FOREIGN KEY (Employee_Id) REFERENCES Employee(Employee_Id)
+);
+CREATE TABLE Education (
+Education_Id int,
+Employee_Id int,
+Degree VARCHAR(30),
+Graduation_Year int(4),
+CONSTRAINT Education_PK PRIMARY KEY (Education_Id),
+FOREIGN KEY (Employee_Id) REFERENCES Employee(Employee_Id)
+);
+CREATE TABLE Leave_ (
+Leave_Id int,
+Employee_Id int,
+Leave_date DATE,
+CONSTRAINT Leave_PK PRIMARY KEY (Leave_Id),
+FOREIGN KEY (Employee_Id) REFERENCES Employee(Employee_Id)
+);
+CREATE TABLE Employee_Attendance (
+Employee_Id int,
+Attendance_Id int,
+CONSTRAINT EMPLOYEEATTENDANCE_PK PRIMARY KEY (Employee_Id, Attendance_Id),
+FOREIGN KEY (Employee_Id) REFERENCES Employee(Employee_Id),
+FOREIGN KEY (Attendance_Id) REFERENCES Attendance(Attendance_Id)
+);
+CREATE TABLE Attendance (
+Attendance_Id int,
+Hours_Worked int,
+CONSTRAINT Attendance_PK PRIMARY KEY (Attendance_Id)
+);
+-------------------------CODE TO INSERT DATA INTO TABLES------------------------------
+INSERT INTO Employee VALUES (101,'Ojas','Phansekar','2016-04-14','New York City','New York',1);
+INSERT INTO Employee VALUES (102,'Vrushali','Patil','2018-06-21','Boston','Massachusetts',2);
+INSERT INTO Employee VALUES (103,'Pratik','Parija','2019-09-13','Chicago','Illinois',3);
+INSERT INTO Employee VALUES (104,'Chetan','Mistry','2011-04-12','Miami','Florida',4);
+INSERT INTO Employee VALUES (105,'Anugraha','Varkey','2017-08-16','Atlanta','Georgia',5);
+INSERT INTO Employee VALUES (106,'Rasagnya','Reddy','2018-07-25','San Mateo','California',6);
+INSERT INTO Employee VALUES (107,'Aishwarya','Boralkar','2010-12-18','San Francisco','California',7);
+INSERT INTO Employee VALUES (108,'Shantanu','Savant','2015-11-27','Seattle','Washington',8);
+INSERT INTO Employee VALUES (109,'Kalpita','Malvankar','2016-04-24','Boston','Massachusetts',8);
+INSERT INTO Employee VALUES (110,'Saylee','Bhagat','2014-05-21','San Francisco','California',7);
+INSERT INTO Department VALUES (1,'Human Resources');
+INSERT INTO Department VALUES (2,'Software Development');
+INSERT INTO Department VALUES (3,'Data Analysis');
+INSERT INTO Department VALUES (4,'Data Science');
+INSERT INTO Department VALUES (5,'Business Intelligence');
+INSERT INTO Department VALUES (6,'Data Engineering');
+INSERT INTO Department VALUES (7,'Manufacturing');
+INSERT INTO Department VALUES (8,'Quality Control');
+INSERT INTO AccountDetails VALUES (40,'Santander','S12344',101);
+INSERT INTO AccountDetails VALUES (41,'Santander','S12345',102);
+INSERT INTO AccountDetails VALUES (42,'Santander','S12346',103);
+INSERT INTO AccountDetails VALUES (43,'Santander','S12347',104);
+INSERT INTO AccountDetails VALUES (44,'Chase','C12344',105);
+INSERT INTO AccountDetails VALUES (45,'Chase','C12345',106);
+INSERT INTO AccountDetails VALUES (46,'Chase','C12347',107);
+INSERT INTO AccountDetails VALUES (47,'Chase','C12334',108);
+INSERT INTO AccountDetails VALUES (48,'BOFA','C12378',109);
+INSERT INTO AccountDetails VALUES (49,'BOFA','C12390',110);
+INSERT INTO Education VALUES (10,101,'MS',2017);
+INSERT INTO Education VALUES (11,102,'MS',2019);
+INSERT INTO Education VALUES (12,104,'MS',2011);
+INSERT INTO Education VALUES (13,108,'MS',2015);
+INSERT INTO Education VALUES (14,109,'Bachelor',2013);
+INSERT INTO Education VALUES (15,107,'Bachelor',2008);
+INSERT INTO Education VALUES (16,106,'Bachelor',2007);
+INSERT INTO Leave_ VALUES (51,104,'2019-12-01');
+INSERT INTO Leave_ VALUES (52,108,'2019-12-02');
+INSERT INTO Leave_ VALUES (53,109,'2019-12-03');
+INSERT INTO Leave_ VALUES (54,107,'2019-12-04');
+INSERT INTO Leave_ VALUES (55,106,'2019-12-05');
+INSERT INTO Leave_ VALUES (56,104,'2019-12-06');
+INSERT INTO Leave_ VALUES (57,108,'2019-12-07');
+INSERT INTO Leave_ VALUES (58,109,'2019-12-07');
+INSERT INTO Leave_ VALUES (59,107,'2019-12-08');
+INSERT INTO Leave_ VALUES (60,106,'2019-12-09');
+INSERT INTO Attendance VALUES (90,10);
+INSERT INTO Attendance VALUES (91,20);
+INSERT INTO Attendance VALUES (92,30);
+INSERT INTO Attendance VALUES (93,40);
+INSERT INTO Attendance VALUES (94,45);
+INSERT INTO Attendance VALUES (95,56);
+INSERT INTO Attendance VALUES (96,58);
+INSERT INTO Employee_Attendance VALUES (101,90);
+INSERT INTO Employee_Attendance VALUES (102,91);
+INSERT INTO Employee_Attendance VALUES (103,92);
+INSERT INTO Employee_Attendance VALUES (104,93);
+INSERT INTO Employee_Attendance VALUES (105,94);
+INSERT INTO Employee_Attendance VALUES (106,95);
+INSERT INTO Employee_Attendance VALUES (107,96);
+INSERT INTO Employee_Attendance VALUES (108,91);
+INSERT INTO Employee_Attendance VALUES (109,92);
+INSERT INTO Employee_Attendance VALUES (110,93);
+INSERT INTO Salary VALUES (1,57600,30,200,1000,40);
+INSERT INTO Salary VALUES (2,76800,40,300,1300,41);
+INSERT INTO Salary VALUES (3,96000,50,400,1500,42);
+INSERT INTO Salary VALUES (4,115200,60,500,1700,43);
+INSERT INTO Salary VALUES (5,57600,30,200,1000,44);
+INSERT INTO Salary VALUES (6,76800,40,300,1300,45);
+INSERT INTO Salary VALUES (7,96000,50,400,1500,46);
+INSERT INTO Salary VALUES (8,115200,60,500,1700,47);
+INSERT INTO Salary VALUES (9,57600,30,200,1000,48);
+INSERT INTO Salary VALUES (10,76800,40,300,1300,49);
+----------------------------------CODE FOR SOME SQL QUERIES-----------------------
+Some SQL Queries :-
+
+Q1) Select all employees' first names and last names:
+
+SELECT First_Name, Last_Name FROM Employee;
+
+Q2)SQL Query To Calculate the average gross salary
+
+SELECT AVG(Gross_Salary) AS Average_Gross_Salary FROM Salary;
+
+Q3) Select employee names along with their department names:
+
+SELECT e.First_Name, e.Last_Name, d.Department_Name
+FROM Employee e
+INNER JOIN Department d ON e.Department_id = d.Department_Id;
+
+Q4)Select employees hired after a certain date:
+
+SELECT * FROM Employee WHERE Hire_Date > '2016-12-12';
+
+Q5) SQL Query To Find employee’s Leave Count
+
+SELECT e.First_Name, e.Last_Name, COUNT(l.Leave_Id) AS Total_Leaves
+FROM Employee e
+LEFT JOIN Leave_ l ON e.Employee_Id = l.Employee_Id
+GROUP BY e.First_Name, e.Last_Name;
+
+Q6) Find the bank with the highest number of accounts.
+
+SELECT ad.Bank_Name, COUNT(ad.Account_Id) AS Total_Accounts
+FROM AccountDetails ad
+GROUP BY ad.Bank_Name
+ORDER BY Total_Accounts DESC
+LIMIT 1;
+Q7) Find the average number of hours worked by employees in each department.
+
+SELECT d.Department_Name, AVG(a.Hours_Worked) AS Avg_Hours_Worked
+FROM Department d
+INNER JOIN Employee e ON d.Department_Id = e.Department_id
+INNER JOIN Employee_Attendance ea ON e.Employee_Id = ea.Employee_Id
+INNER JOIN Attendance a ON ea.Attendance_Id = a.Attendance_Id
+GROUP BY d.Department_Name;
+
+-----------------------------CODE FOR VIEWS----------------------------------
+1)
+
+CREATE VIEW EmployeeDetails AS
+SELECT e.Employee_Id, e.First_Name, e.Last_Name, e.Hire_Date, e.City, e.State, d.Department_Name
+FROM Employee e
+INNER JOIN Department d ON e.Department_id = d.Department_Id;
+
+
+2)
+
+CREATE VIEW EmployeeEducation AS
+SELECT e.Employee_Id, e.First_Name, e.Last_Name, edu.Degree, edu.Graduation_Year
+FROM Employee e
+INNER JOIN Education edu ON e.Employee_Id = edu.Employee_Id;
+
+3)
+
+CREATE VIEW Employee_Net_Salary AS
+SELECT E.Employee_Id, E.First_Name, E.Last_Name, (S.Gross_Salary - S.State_Tax - S.Federal_Tax) AS Net_Salary
+FROM Employee E
+JOIN AccountDetails A ON E.Employee_Id = A.Employee_Id
+JOIN Salary S ON A.Account_Id = S.Account_Id;
+
+4)
+
+CREATE VIEW Employee_Leave_History AS
+SELECT E.Employee_Id, E.First_Name, E.Last_Name, L.Leave_date
+FROM Employee E
+JOIN Leave L ON E.Employee_Id = L.Employee_Id;
+
+5)
+
+CREATE VIEW Employee_Attendance_Summary AS
+SELECT E.Employee_Id, E.First_Name, E.Last_Name, A.Hours_Worked
+FROM Employee E
+JOIN Employee_Attendance EA ON E.Employee_Id = EA.Employee_Id
+JOIN Attendance A ON EA.Attendance_Id = A.Attendance_Id;
+
+6)
+
+CREATE VIEW Employee_Hourly_Pay_Hours_Worked AS
+SELECT E.Employee_Id, E.First_Name, E.Last_Name, S.Hourly_Pay, A.Hours_Worked
+FROM Employee E
+JOIN AccountDetails AD ON E.Employee_Id = AD.Employee_Id
+JOIN Salary S ON AD.Account_Id = S.Account_Id
+JOIN Employee_Attendance EA ON E.Employee_Id = EA.Employee_Id
+JOIN Attendance A ON EA.Attendance_Id = A.Attendance_Id;
